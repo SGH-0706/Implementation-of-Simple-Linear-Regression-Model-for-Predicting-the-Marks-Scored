@@ -29,68 +29,58 @@ RegisterNumber:  212224240161
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error, mean_absolute_error
-
-
-data = {
-    'Hours': [2.5, 5.1, 3.2, 8.5, 3.5, 1.5, 9.2, 5.5, 8.3, 2.7],
-    'Scores': [21, 47, 27, 75, 30, 20, 88, 60, 81, 25]
-}
-
-df = pd.DataFrame(data)
-
+from sklearn.metrics import mean_absolute_error,mean_squared_error
+df=pd.read_csv('student_scores.csv')
 print(df)
-
-X = df[['Hours']].values
-Y = df['Scores'].values
-
-Xtrain, Xtest, Ytrain, Ytest = train_test_split(X, Y, test_size=1/3, random_state=0)
-
-
-reg = LinearRegression()
-reg.fit(Xtrain, Ytrain)
-
-
-Ypred = reg.predict(Xtest)
-
-print("Predicted Values:", Ypred)
-
-
-plt.scatter(Xtrain, Ytrain, color='orange')
-plt.plot(Xtrain, reg.predict(Xtrain), color='red')
-plt.title("Training Set")
+df.head(0)
+df.tail(0)
+print(df.head())
+print(df.tail())
+x = df.iloc[:,:-1].values
+print(x)
+y = df.iloc[:,1].values
+print(y)
+from sklearn.model_selection import train_test_split
+x_train, x_test ,y_train,y_test=train_test_split(x,y,test_size=1/3,random_state=0)
+from sklearn.linear_model import LinearRegression
+regressor = LinearRegression()
+regressor.fit(x_train,y_train)
+y_pred=regressor.predict(x_test)
+print(y_pred)
+print(y_test)
+plt.scatter(x_train,y_train,color='black')
+plt.plot(x_train,regressor.predict(x_train),color='blue')
+plt.title ("Hours vs Scores(Training set)")
+plt.xlabel("Hours")
+plt.ylabel("Scores")
+plt.show()
+plt.scatter(x_test ,y_test,color='black')
+plt.plot(x_train,regressor.predict(x_train),color='Red')
+plt.title("Hours vs Scores(Testing set)")
 plt.xlabel("Hours")
 plt.ylabel("Scores")
 plt.show()
 
-
-plt.scatter(Xtest, Ytest, color='blue')
-plt.plot(Xtest, reg.predict(Xtest), color='green')
-plt.title("Test Set")
-plt.xlabel("Hours")
-plt.ylabel("Scores")
-plt.show()
-
-
-mse = mean_squared_error(Ytest, Ypred)
-mae = mean_absolute_error(Ytest, Ypred)
-rmse = np.sqrt(mse)
-
-print("MSE :", mse)
-print("MAE :", mae)
-print("RMSE :", rmse)
-
+mse=mean_squared_error(y_test,y_pred)
+print('MSE= ',mse)
+mae=mean_absolute_error(y_test,y_pred)
+print('MAE= ',mae)
 */
 ```
 
 ## Output:
-<img width="1303" height="308" alt="image" src="https://github.com/user-attachments/assets/13d5c3af-4c49-4edc-bbb8-bcd9c9431f7a" />
+<img width="859" height="641" alt="image" src="https://github.com/user-attachments/assets/12418762-b7ad-4769-be6b-61d74a2c96e8" />
 
-<img width="944" height="674" alt="image" src="https://github.com/user-attachments/assets/54c03f83-0a60-4cf4-b69f-2f1d0f4f6823" />
+<img width="421" height="301" alt="image" src="https://github.com/user-attachments/assets/cd69d5f0-43e7-4b84-871e-4d4309ce0955" />
 
-<img width="953" height="748" alt="image" src="https://github.com/user-attachments/assets/17d4fda8-2d9b-406a-a7d9-1c4537943a00" />
+
+<img width="851" height="667" alt="image" src="https://github.com/user-attachments/assets/d9e3068c-e0ae-4206-81de-cd9f0e24e4f8" />
+
+
+<img width="883" height="744" alt="image" src="https://github.com/user-attachments/assets/704c2bae-4e57-4e99-8237-a04557cf07d7" />
+
+
+<img width="968" height="751" alt="image" src="https://github.com/user-attachments/assets/2f741bd3-1546-48b7-a4a7-85006b059a82" />
 
 ## Result:
 Thus the program to implement the simple linear regression model for predicting the marks scored is written and verified using python programming.
